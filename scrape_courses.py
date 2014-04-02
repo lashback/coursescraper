@@ -1,6 +1,7 @@
 from selenium import webdriver
 import credentials
 from listings import listings
+from bs4 import BeautifulSoup
 
  
 browser = webdriver.Firefox()
@@ -21,10 +22,11 @@ button.click()
 
 #here are the functions
 #this guy grabs the table and writes it out to a csv
-def grab_data():
+def grab_data(source):
 	#bootyfulsoups goes here
 	#writes out
-
+	soup = BeautifulSoup(source)
+	print(soup.prettify())
 	pass
 
 
@@ -38,7 +40,8 @@ def process_option(i, el):
 	el = el.find_elements_by_tag_name('option')
 	el[i].click()
 	button.click()
-	grab_data()
+	html_source = browser.page_source
+	grab_data(html_source)
 	browser.back() # and go back!
 
 
