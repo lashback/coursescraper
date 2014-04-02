@@ -24,7 +24,7 @@ button.click()
 def grab_data():
 	#bootyfulsoups goes here
 	#writes out
-	
+
 	pass
 
 
@@ -44,6 +44,7 @@ def process_option(i, el):
 
 for l in listings:
 	course_field = browser.find_element_by_name('rubrchoice')
+	course_field.clear()
 	course_field.send_keys(l)
 	button = browser.find_element_by_name('rptchoice')
 	button.click()
