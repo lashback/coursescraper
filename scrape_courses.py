@@ -29,7 +29,7 @@ def grab_data(source):
 	soup = BeautifulSoup(source)
 	relevant = soup.body.find(id="content").find_all("table").pop()
 	for tr in relevant.find_all("tr"):
-		thisentry = list()	
+		thisentry = list()				#recreate list
 		for td in tr.find_all("td"):
 			if len(td.contents) == 1:	#Most contents have only 1 item: the relevant one. Except names, which have 2.
 				thisentry.append(string.strip(unicode(td.contents[0].string)))
