@@ -29,7 +29,7 @@ def grab_data(source):
 	relevant = soup.body.find(id="content").find_all("table").pop()
 	for tr in relevant.find_all("tr"):
 		for td in tr.find_all("td"):
-			print(td)
+			print(td.string)
 	pass
 
 
