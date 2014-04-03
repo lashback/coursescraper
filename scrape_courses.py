@@ -2,6 +2,7 @@ from selenium import webdriver
 import credentials
 from listings import listings
 from bs4 import BeautifulSoup
+import string
 
  
 browser = webdriver.Firefox()
@@ -28,11 +29,18 @@ def grab_data(source):
 	soup = BeautifulSoup(source)
 	relevant = soup.body.find(id="content").find_all("table").pop()
 	for tr in relevant.find_all("tr"):
+		thisentry = list()	
 		for td in tr.find_all("td"):
-			if td.string == "None":               '''currently still outputs None for the names'''
-				print(td.find("a").contents)
-			else:
-				print(td.string)
+			if len(td.contents) == 1:	#Most contents have only 1 item: the relevant one. Except names, which have 2.
+				thisentry.append(string.strip(unicode(td.contents[0].string)))
+			else:						#For names of TA/Instructor
+				thisentry.append(string.strip(unicode(td.contents[1].string)))
+		if len(thisentry) > 0 and thisentry[24] != "NC":
+			thisentry[24] = "C" 		#C for credit courses, NC for non-credit courses
+
+		for entry in thisentry:			#displaying the results - can someone turn this into csv? I may have time over the weekend.
+			print(entry)
+		print("||||||||||||||||||||||||||||||||||||||")
 	pass
 
 
