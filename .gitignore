@@ -2,3 +2,5 @@
 credentials.py
 
 *.pyc
+
+*.csv

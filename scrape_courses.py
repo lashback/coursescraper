@@ -3,6 +3,7 @@ import credentials
 from listings import listings
 from bs4 import BeautifulSoup
 import string
+import csv
 
  
 browser = webdriver.Firefox()
@@ -28,6 +29,8 @@ def grab_data(source):
 	#writes out
 	soup = BeautifulSoup(source)
 	relevant = soup.body.find(id="content").find_all("table").pop()
+	csvfile = open('csvfile.csv', 'w+')
+	csvwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 	for tr in relevant.find_all("tr"):
 		thisentry = list()				#recreate list
 		for td in tr.find_all("td"):
@@ -41,6 +44,10 @@ def grab_data(source):
 		for entry in thisentry:			#displaying the results - can someone turn this into csv? I may have time over the weekend.
 			print(entry)
 		print("||||||||||||||||||||||||||||||||||||||")
+		if len(thisentry) > 0:			#doesn't work yet
+			print(thisentry)
+			csvwriter.writerow(thisentry)
+
 	pass
 
 
