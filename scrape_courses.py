@@ -93,7 +93,7 @@ for option in el.find_elements_by_tag_name('option'):
 	browser.back()
 this method does not work, because of the way selenium works. we can look more into this later.
 '''
-
+csvfile.close()
 
 
 
