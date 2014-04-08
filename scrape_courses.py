@@ -43,13 +43,13 @@ def grab_data(source):
 		if len(thisentry) > 0 and thisentry[24] != "NC":
 			thisentry[24] = "C" 		#C for credit courses, NC for non-credit courses
 
-		"""for entry in thisentry:			#displaying the results - can someone turn this into csv? I may have time over the weekend.
+		"""for entry in thisentry:		#displaying the results - can someone turn this into csv? I may have time over the weekend.
 			print(entry)
 		print("||||||||||||||||||||||||||||||||||||||")"""
-		if len(thisentry) > 0:			#doesn't work yet
+		if len(thisentry) > 0:			#IT WORKS NOW, BITCH!
 			csvwriter.writerow(thisentry)
-			print('this page is done')
 
+	print('this page is done')
 	pass
 
 
