@@ -6,7 +6,7 @@ import string
 import csv
 
 csvfile = open('csvfile.csv', 'w+')
-csvwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+csvwriter = csv.writer(csvfile, dialect='excel', delimiter=';')
  
 browser = webdriver.Firefox()
 browser.get('https://www-s.dmi.illinois.edu/course/crscrssearch.asp')
@@ -31,6 +31,7 @@ button.click()
 def grab_data(source):
 	#bootyfulsoups goes here
 	#writes out
+	print('this page is in progress')
 	soup = BeautifulSoup(source)
 	relevant = soup.body.find(id="content").find_all("table").pop()
 	for tr in relevant.find_all("tr"):
