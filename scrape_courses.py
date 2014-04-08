@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 import string
 import csv
 
+csvfile = open('csvfile.csv', 'w+')
+csvwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
  
 browser = webdriver.Firefox()
 browser.get('https://www-s.dmi.illinois.edu/course/crscrssearch.asp')
@@ -19,6 +21,8 @@ password_field.send_keys(credentials.my_password)
 button = browser.find_element_by_name('BTN_LOGIN')
 button.click()
 
+
+
 # at this point, you should be logged in!
 
 
@@ -29,24 +33,22 @@ def grab_data(source):
 	#writes out
 	soup = BeautifulSoup(source)
 	relevant = soup.body.find(id="content").find_all("table").pop()
-	csvfile = open('csvfile.csv', 'w+')
-	csvwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 	for tr in relevant.find_all("tr"):
 		thisentry = list()				#recreate list
 		for td in tr.find_all("td"):
 			if len(td.contents) == 1:	#Most contents have only 1 item: the relevant one. Except names, which have 2.
-				thisentry.append(string.strip(unicode(td.contents[0].string)))
+				thisentry.append(string.strip(td.contents[0].string).replace(u'\xa0', u' '))
 			else:						#For names of TA/Instructor
-				thisentry.append(string.strip(unicode(td.contents[1].string)))
+				thisentry.append(string.strip(td.contents[1].string))
 		if len(thisentry) > 0 and thisentry[24] != "NC":
 			thisentry[24] = "C" 		#C for credit courses, NC for non-credit courses
 
-		for entry in thisentry:			#displaying the results - can someone turn this into csv? I may have time over the weekend.
+		"""for entry in thisentry:			#displaying the results - can someone turn this into csv? I may have time over the weekend.
 			print(entry)
-		print("||||||||||||||||||||||||||||||||||||||")
+		print("||||||||||||||||||||||||||||||||||||||")"""
 		if len(thisentry) > 0:			#doesn't work yet
-			print(thisentry)
 			csvwriter.writerow(thisentry)
+			print('this page is done')
 
 	pass
 
