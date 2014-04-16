@@ -40,8 +40,9 @@ def grab_data(source):
 			if len(td.contents) == 1:	#Most contents have only 1 item: the relevant one. Except names, which have 2.
 				thisentry.append(string.strip(td.contents[0].string).replace(u'\xa0', u' '))
 			else:						#For names of TA/Instructor
+				#Need to get full name of instructor by clicking on the link <3
 				thisentry.append(string.strip(td.contents[1].string))
-		if len(thisentry) > 0 and thisentry[24] != "NC":
+		if len(thisentry) > 24 and thisentry[24] != "NC":
 			thisentry[24] = "C" 		#C for credit courses, NC for non-credit courses
 
 		"""for entry in thisentry:		#displaying the results - can someone turn this into csv? I may have time over the weekend.
